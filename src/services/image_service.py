@@ -11,7 +11,8 @@ CLANED_IMAGE_PATH = "./resources/2.cleaned/"
 os.makedirs(DIRTY_IMAGE_PATH, exist_ok=True)
 os.makedirs(DIRTY_IMAGE_PATH, exist_ok=True)
 
-class ImageHandler:
+
+class ImageService:
     model: ImageModel
     session: Session
 
