@@ -1,8 +1,9 @@
 import os
 from flask import Flask
 from api import api
-from models import db
+from models import Base, engine
 
+print(os.getcwd())
 try:
     os.mkdir("./resources")
 except:
@@ -13,8 +14,5 @@ def create_app():
     app = Flask(__name__)
     app.config.from_pyfile("config.py")
     api.init_app(app)
-    db.init_app(app)
-    with app.app_context():
-        db.create_all()
-
+    Base.metadata.create_all(engine)
     return app

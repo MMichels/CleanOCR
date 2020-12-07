@@ -2,8 +2,8 @@ import cv2
 import json
 import logging
 
-from src.image_processing import ImageIoManager
 from src.image_processing.filters import ImageFilterApplier
+from src.services.image_service import ImageService
 from src.rabbit.consumer import RabbitConsumer
 
 logger = logging.getLogger(__name__)
@@ -14,9 +14,8 @@ logger.addHandler(logging.StreamHandler())
 def clean_consumer(ch, method, properties, body):
     logger.info("Recebido: " + str(body))
     message = json.loads(body)
-    ioManager = ImageIoManager(message["id"])
-
-    image = ioManager.open_dirty_image()
+    service = ImageService(id=message["id"])
+    image = service.load_dirty_image()
 
     imgFilterApp = ImageFilterApplier(image)
     gray_image = imgFilterApp.to_gray_scale()
@@ -26,7 +25,7 @@ def clean_consumer(ch, method, properties, body):
     background = cv2.bitwise_not(background)
     imgFilterApp.add(background)
 
-    ioManager.save_clean_image(imgFilterApp.image)
+    service.save_clean_image(image)
 
     ch.basic_ack(delivery_tag=method.delivery_tag)
 

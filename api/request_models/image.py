@@ -50,6 +50,11 @@ get_image_response_model = {
                 required=True,
                 description="Bytes da imagem encodados em base64"
             ),
+            "base64_encoded_processed_image": fields.String(
+                required=False,
+                description="Bytes da imagem processada encodados em base64",
+                default=None
+            ),
             "extracted_text": fields.String(
                 required=False,
                 description="Texto extraido da imagem utilizando OCR"

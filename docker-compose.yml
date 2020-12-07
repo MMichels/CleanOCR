@@ -5,3 +5,19 @@ services:
     ports:
     - "15672:15672"
     - "5672:5672"
+
+  api:
+    build:
+      context: .
+      dockerfile: DockerFile_API
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./resources:/app/resources
+
+  cleaner:
+    build:
+      context: .
+      dockerfile: DockerFile_Cleaner
+    volumes:
+      - ./resources:/app/resources

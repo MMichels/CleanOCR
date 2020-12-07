@@ -1,9 +1,16 @@
-from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+from config import SQLALCHEMY_DATABASE_URI
 
-db = SQLAlchemy()
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URI
+)
+SessionMaker = sessionmaker(bind=engine)
+Base = declarative_base()
+Base.metadata.bind = engine
 
 
 def get_session():
-    global db
-    session = db.create_scoped_session()
+    session = SessionMaker()
     return session
