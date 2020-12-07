@@ -16,7 +16,7 @@ class ImageService:
     model: ImageModel
     session: Session
 
-    def __init__(self, image_model):
+    def __init__(self, image_model=None):
         self.session = get_session()
         self.model = image_model
 
@@ -24,7 +24,6 @@ class ImageService:
         if self.model.id is None:
             self.session.add(self.model)
             self.session.commit()
-
 
         path = os.path.join(DIRTY_IMAGE_PATH, str(self.model.id) + ".png")
         with open(path, "wb") as f:
@@ -36,3 +35,12 @@ class ImageService:
 
         return True
 
+    def get_total_images(self):
+        total = ImageModel.query.count()
+        return total
+
+    def get_navigate_images(self, index, count):
+        images = ImageModel.query.filter(
+            ImageModel.id >= index
+        ).limit(count).all()
+        return images
