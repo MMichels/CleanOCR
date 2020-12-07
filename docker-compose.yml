@@ -10,14 +10,17 @@ services:
     build:
       context: .
       dockerfile: DockerFile_API
+    volumes:
+      - "./resources:/app/resources"
     ports:
       - "5000:5000"
-    volumes:
-      - ./resources:/app/resources
 
   cleaner:
     build:
       context: .
       dockerfile: DockerFile_Cleaner
     volumes:
-      - ./resources:/app/resources
+      - "./resources:/app/resources"
+    network_mode: "host"
+        
+      

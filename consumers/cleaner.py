@@ -1,6 +1,7 @@
 import cv2
 import json
 import logging
+import time
 
 from src.image_processing.filters import ImageFilterApplier
 from src.services.image_service import ImageService
@@ -42,3 +43,4 @@ if __name__ == "__main__":
 
         except Exception as e:
             logger.error("Erro ao consumir mensagem", exc_info=True)
+            time.sleep(5)
