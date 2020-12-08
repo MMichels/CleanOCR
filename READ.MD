@@ -14,12 +14,12 @@ Utilizando tecnicas de remoção de fundo com filtro de mediana
 
 1 - Clone o repositório para uma basta local \
 2 - Verifique se o docker esta rodando \
-3 - Execute o comando " docker-compose up -d " sem aspas
-4 - Acesse o swagger da api pelo endereço http://localhost:5000/
+3 - Execute o comando " docker-compose up -d " sem aspas \
+4 - Acesse o swagger da api pelo endereço http://localhost:5000/ \
 5 - Realize o upload das imagens em base64 utilizando o método POST\
     * Para gerar o encoding base64 da imagem [click aqui](https://base64.guru/converter/encode/image) \
 6 - Realize o download das imagens limpa em Base64 utilizando o método GET \
-7 - Exclua imagens utilizando o método DELETE 
+7 - Exclua imagens utilizando o método DELETE
 
 
 As imagens enviadas serão salvas na pasta resources/1.dirty \
