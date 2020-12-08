@@ -1,7 +1,7 @@
 # Clean Images API!
 
 Um conjunto de microserviços utilizado para remover manchas e pequenas imperfeições de imagens de documentos\
-Utilizando tecnicas de remoção de fundo com filtro de mediana 
+Utilizando tecnicas de autoencoder
 
 
 ## Dependencias
