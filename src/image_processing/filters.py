@@ -41,8 +41,10 @@ class ImageFilterApplier():
         return self.image.copy()
 
     def erode(self, iterations=1):
-        structuring_element = cv2.getStructuringElement(cv2.MORPH_CROSS, (3, 3))
-        self.image = cv2.erode(self.image, structuring_element, iterations=iterations)
+        structuring_element1 = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 1))
+        structuring_element2 = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 2))
+        self.image = cv2.erode(self.image, structuring_element1, iterations=iterations)
+        self.image = cv2.erode(self.image, structuring_element2, iterations=iterations)
         return self.image.copy()
 
     def dilate(self, iterations=1):

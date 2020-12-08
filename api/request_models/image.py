@@ -34,6 +34,14 @@ get_image_parser.add_argument(
     required=True,
     help="Quantidade de elementos retornados a partir do index"
 )
+get_image_parser.add_argument(
+    "only_processed",
+    type=bool,
+    default=True,
+    location="args",
+    required=False,
+    help="Se True, retorna apenas as imagens processadas"
+)
 
 get_image_response_model = {
     "total": fields.Integer(
@@ -64,3 +72,12 @@ get_image_response_model = {
 }
 
 get_image_response_model = make_response_model(get_image_response_model)
+
+delete_image_model = {
+    "id": fields.Integer(
+        required=True,
+        description="Id da imagem a ser excluida"
+    )
+}
+
+delete_image_response_model = make_response_model({})
