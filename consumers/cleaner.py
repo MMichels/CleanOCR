@@ -26,7 +26,7 @@ def clean_consumer(ch, method, properties, body):
     background = cv2.bitwise_not(background)
     imgFilterApp.add(background)
 
-    service.save_clean_image(image)
+    service.save_clean_image(imgFilterApp.image)
 
     ch.basic_ack(delivery_tag=method.delivery_tag)
 

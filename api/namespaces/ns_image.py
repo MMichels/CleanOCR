@@ -66,3 +66,4 @@ class ImageResource(Resource):
                 "status": "not_found",
                 "error": "Não foi encontrado nenhuma imagem para os parametros recebidos"
             }
+

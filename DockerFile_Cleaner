@@ -10,6 +10,8 @@ RUN useradd appuser && chown -R appuser /app
 RUN mkdir =p /home/appuser
 RUN chown -R appuser /home/appuser/
 USER appuser
+
+ENV HOST=docker
 ENV PATH=$PATH:/home/appuser/.local/bin:/app
 ENV PYTHONPATH=/app
 

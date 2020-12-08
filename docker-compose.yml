@@ -21,6 +21,5 @@ services:
       dockerfile: DockerFile_Cleaner
     volumes:
       - "./resources:/app/resources"
-    network_mode: "host"
         
       
