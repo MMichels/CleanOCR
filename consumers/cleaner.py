@@ -1,8 +1,8 @@
-import cv2
 import json
 import logging
 import time
-
+import numpy as np
+from src.image_processing.autoencoder import AutoEncoderHandler
 from src.image_processing.filters import ImageFilterApplier
 from src.services.image_service import ImageService
 from src.rabbit.consumer import RabbitConsumer
@@ -11,21 +11,18 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
 
+ENCODER_MODEL_PATH = "resources/model"
+encode = AutoEncoderHandler(ENCODER_MODEL_PATH)
 
 def clean_consumer(ch, method, properties, body):
     logger.info("Recebido: " + str(body))
     message = json.loads(body)
     service = ImageService(id=message["id"])
     image = service.load_dirty_image()
-
     imgFilterApp = ImageFilterApplier(image)
-    gray_image = imgFilterApp.to_gray_scale()
-    background = imgFilterApp.median_filter(23)
-
-    imgFilterApp.image = gray_image
-    background = cv2.bitwise_not(background)
-    imgFilterApp.add(background)
-    imgFilterApp.erode()
+    imgFilterApp.to_gray_scale()
+    predicted = encode.predict(imgFilterApp.image)
+    imgFilterApp.image = predicted
     service.save_clean_image(imgFilterApp.image)
 
     ch.basic_ack(delivery_tag=method.delivery_tag)

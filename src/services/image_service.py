@@ -2,6 +2,8 @@ import base64
 import cv2
 import os
 import numpy as np
+
+from keras.preprocessing.image import load_img, img_to_array
 from sqlalchemy.orm import Session
 from models import get_session
 from models.image import ImageModel
@@ -50,9 +52,10 @@ class ImageService:
     def load_dirty_image(self, id=None):
         if id is None and self.model is not None:
             id = self.model.id
-        image_bytes = self.load_dirty_image_bytes(id)
-        image_array = np.fromstring(image_bytes, np.uint8)
-        image = cv2.imdecode(image_array, flags=1)
+
+        img_path = os.path.join(DIRTY_IMAGE_PATH, str(id) + '.png')
+        image = load_img(img_path, target_size=(420, 540))
+        image = img_to_array(image)
         return image
 
     def save_clean_image(self, image, id=None):
